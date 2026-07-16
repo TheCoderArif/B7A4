@@ -1,0 +1,31 @@
+enum Role {
+    CUSTOMER
+    PROVIDER
+    ADMIN
+}
+
+enum GearStatus {
+    AVAILABLE
+    OUT_OF_STOCK
+    MAINTENANCE
+}
+
+enum RentalStatus {
+    PLACED
+    CONFIRMED
+    PICKED_UP
+    RETURNED
+    CANCELLED
+}
+
+enum PaymentMethod {
+    STRIPE
+    SSLCOMMERZ
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    FAILED
+    REFUNDED
+}
