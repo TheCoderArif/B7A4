@@ -5,7 +5,7 @@ import { ILogInUser } from "./auth.interface";
 import { jwtUtils } from "../../utilities/jwt";
 
 const registerUserIntoDB = async (payload : any) => {
-     const {name, email, password} = payload;
+     const {name, email, password, role} = payload;
 
     const isUserExist = await prisma.user.findUnique(
         {where : {email}}
@@ -19,7 +19,7 @@ const registerUserIntoDB = async (payload : any) => {
             name,
             email,
             password: hashPassword,
-
+            role
         },
         omit : {
             password: true
@@ -86,11 +86,12 @@ const getMyProfileFromDB = async (userId : string) => {
         omit: {password: true}
     });
 
-    
+
+
+
 
     return user;
 };
-
 
 
 

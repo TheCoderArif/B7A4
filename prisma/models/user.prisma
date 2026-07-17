@@ -5,7 +5,7 @@ model User {
     password String
     phone    String?
     address  String?
-    role     Role    @default(CUSTOMER)
+    role     Role    @default(CUSTOMER) 
 
     // Provider Relations
     gearItems GearItem[]
