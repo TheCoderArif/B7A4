@@ -9,7 +9,7 @@ const router = Router();
 
 router.post("/gear",auth(Role.PROVIDER), providerController.addGear);
 
-// router.put("/gear/:id");
+router.put("/gear/:id",auth(Role.PROVIDER), providerController.updateGear);
 
 // router.delete("gear/:id");
 

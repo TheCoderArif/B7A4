@@ -1,6 +1,9 @@
 import { prisma } from "../../lib/prisma";
+import { IGearPayload, IUpdateGearPayload } from "./provider.interface";
 
-const addGearIntoDB = async (payload : any, id: string) => {
+const addGearIntoDB = async (payload : IGearPayload, id: string) => {
+
+    
 
 
 
@@ -43,6 +46,51 @@ const addGearIntoDB = async (payload : any, id: string) => {
 };
 
 
+const updateGearIntoDB = async (gearId : string, payload: IUpdateGearPayload, providerId : string) => {
+
+    const gear = await prisma.gearItem.findUniqueOrThrow({
+        where: {
+            id : gearId
+        }
+    });
+    const {name, description, image, pricePerDay, quantity, available, status, categoryId} = payload;
+
+    if (!gear){
+        throw new Error("Gear not found");
+    }
+
+    const result = await prisma.gearItem.update({
+  where: {
+    id: gearId,
+  },
+  data: {
+    name,
+    description,
+    image,
+    pricePerDay,
+    quantity,
+    available,
+    status,
+    category: {
+      connect: {
+        id: categoryId,
+      },
+    },
+    provider: {
+      connect: {
+        id: providerId,
+      },
+    },
+  },
+});
+
+    return result;
+
+};
+
+
+
 export const providerService = {
-    addGearIntoDB
+    addGearIntoDB,
+    updateGearIntoDB
 };

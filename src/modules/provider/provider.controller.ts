@@ -15,6 +15,7 @@ const addGear = catchAsync(async (req : Request, res : Response, next : NextFunc
     
 
     const payload = req.body;
+
     const gear = await providerService.addGearIntoDB(payload, verifiedToken.data.id);
 
     if (!gear){
@@ -37,6 +38,33 @@ const addGear = catchAsync(async (req : Request, res : Response, next : NextFunc
 
 
 
+const updateGear = catchAsync(async (req : Request, res : Response, next: NextFunction) =>{
+
+    const gearId = req.params.id;
+    const payload = req.body;
+
+    const {accessToken} = req.cookies;
+    
+        const verifiedToken = jwtUtils.verifyToken(accessToken, config.jwt_access_token_secret) as JwtPayload;
+    
+
+
+    // console.log(gearId);
+
+    const result = await providerService.updateGearIntoDB(gearId as string, payload, verifiedToken.data.id);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Gear updated successfully",
+        data: result
+    });
+
+});
+
+
+
 export const providerController = {
-    addGear
+    addGear,
+    updateGear
 };
