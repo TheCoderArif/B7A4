@@ -2,7 +2,6 @@ import cookieParser from "cookie-parser";
 import express, { Application, Request, response, Response } from "express";
 import cors from "cors";
 import config from "./config";
-import { userRoutes } from "./modules/user/user.route";
 import { authRoutes } from "./modules/auth/auth.route";
 
 const app : Application = express();

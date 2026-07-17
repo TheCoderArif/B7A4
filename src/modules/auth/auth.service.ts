@@ -2,8 +2,7 @@ import bcrypt from "bcryptjs";
 import { prisma } from "../../lib/prisma";
 import config from "../../config";
 import { ILogInUser } from "./auth.interface";
-import jwt, { SignOptions } from "jsonwebtoken";
-import { jwtUtils } from "../../jwt";
+import { jwtUtils } from "../../utilities/jwt";
 
 const registerUserIntoDB = async (payload : any) => {
      const {name, email, password} = payload;
@@ -81,9 +80,22 @@ const loginUser = async (payload : ILogInUser) => {
 
 
 
+const getMyProfileFromDB = async (userId : string) => {
+    const user = await prisma.user.findUniqueOrThrow({
+        where: {id : userId},
+        omit: {password: true}
+    });
+
+    return user;
+};
+
+
+
+
+
 
 export const authService = {
     registerUserIntoDB,
     loginUser,
-
+    getMyProfileFromDB
 }
