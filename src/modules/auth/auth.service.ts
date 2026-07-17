@@ -86,6 +86,8 @@ const getMyProfileFromDB = async (userId : string) => {
         omit: {password: true}
     });
 
+    
+
     return user;
 };
 

@@ -3,7 +3,7 @@ import catchAsync from "../../utilities/catchAsync";
 import { authService } from "./auth.service";
 import sendResponse from "../../utilities/sendResponse";
 import httpStatus from "http-status";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import { JwtPayload } from "jsonwebtoken";
 import config from "../../config";
 import { jwtUtils } from "../../utilities/jwt";
 
@@ -58,12 +58,16 @@ const loginUser = catchAsync(async (req : Request, res : Response, next : NextFu
 
 const getMyProfile = catchAsync(async (req : Request, res : Response, next : NextFunction) => {
 
+    
+
 
     const {accessToken} = req.cookies;
 
     const verifiedToken = jwtUtils.verifyToken(accessToken, config.jwt_access_token_secret) as JwtPayload;
 
-    const user = await authService.getMyProfileFromDB(verifiedToken.id);
+    // console.log(verifiedToken.data.id);
+
+    const user = await authService.getMyProfileFromDB(verifiedToken.data.id);
 
 
     sendResponse(res, {
@@ -72,6 +76,7 @@ const getMyProfile = catchAsync(async (req : Request, res : Response, next : Nex
         message: "User data fetched successfully!",
         data: {user}
     });
+
 
     
 
