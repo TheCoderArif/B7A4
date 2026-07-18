@@ -64,9 +64,47 @@ const getAllGearsForAdminFromDB = async () => {
 
 
 
+const getAllRentalOrdersForAdminFromDB = async () => {
+
+    const orders = await prisma.rentalOrder.findMany({
+    include: {
+      customer: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phone: true,
+        },
+      },
+      gearItem: {
+        include: {
+          category: true,
+          provider: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+        },
+      },
+      payment: true, 
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return orders;
+
+};
+
+
+
 
 export const adminService = {
     getAllUsersFromDB,
     updateUserStatusOnDB,
-    getAllGearsForAdminFromDB
+    getAllGearsForAdminFromDB,
+    getAllRentalOrdersForAdminFromDB
 };

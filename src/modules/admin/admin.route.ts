@@ -12,7 +12,7 @@ router.patch("/users/:id", adminController.updateUserStatus);
 
 router.get("/gear", adminController.getAllGearsForAdmin);
 
-// router.get("/rentals", );
+router.get("/rentals", adminController.getAllRentalOrdersForAdmin);
 
 
 
