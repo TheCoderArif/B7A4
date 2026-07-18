@@ -25,7 +25,7 @@ const auth = (...requiredRoles : Role[]) => {
         //  || req.headers.authorization?.startsWith("Bearer") ? req.headers.authorization?.split(" ")[1] : req.headers.authorization;
 
         if(!accessToken) {
-            throw new Error("You are not logged in yet. Please log in to access this resource");
+            throw new Error(`This action is allowed for ${requiredRoles}`);
         }
 
         const verifiedToken = jwtUtils.verifyToken(accessToken, config.jwt_access_token_secret);
