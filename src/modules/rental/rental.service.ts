@@ -1,7 +1,7 @@
 import { prisma } from "../../lib/prisma";
 import { IRentalOrderPayload } from "./tental.interface";
 
-const createRentalOrderOnDB = async (payload : IRentalOrderPayload) => {
+const createRentalOrderOnDB = async (payload : IRentalOrderPayload, customerId : string) => {
 
 
  const gear = await prisma.gearItem.findUnique({
@@ -31,6 +31,27 @@ const createRentalOrderOnDB = async (payload : IRentalOrderPayload) => {
 
   const totalCost = gear.pricePerDay * rentalDays * payload.quantity;
 
+  const rentalOrder = await prisma.rentalOrder.create({
+    data: {
+      startDate: payload.startDate,
+      endDate: payload.endDate,
+      quantity: payload.quantity,
+      totalAmount: totalCost,
+
+      customer: {
+        connect: {
+          id: customerId,
+        },
+      },
+
+      gearItem: {
+        connect: {
+          id: payload.gearItemId,
+        },
+      },
+    },
+  });
+
   const result = {
 
     gearId: gear.id,
@@ -50,8 +71,77 @@ const createRentalOrderOnDB = async (payload : IRentalOrderPayload) => {
     
 };
 
+const getRentalOrdersFromDB = async () => {
+
+
+ 
+     const rentalOrders = await prisma.rentalOrder.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return rentalOrders;
+
+    
+};
+
+
+
+const getRentalOrderDetailsFromDB = async (rentalOrderId : string) => {
+
+
+    const rentalOrder = await prisma.rentalOrder.findUnique({
+    where: {
+      id: rentalOrderId,
+    },
+    include: {
+      customer: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phone: true,
+        },
+      },
+      gearItem: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          pricePerDay: true,
+          category: true,
+          provider: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+        },
+      },
+      payment: true,
+    },
+  });
+
+  if (!rentalOrder) {
+    throw new Error("Rental order not found");
+  }
+
+  return rentalOrder;
+
+
+ 
+     
+
+    
+};
+
+
 
 
 export const rentalService = {
-    createRentalOrderOnDB
+    createRentalOrderOnDB,
+    getRentalOrdersFromDB,
+    getRentalOrderDetailsFromDB
 };

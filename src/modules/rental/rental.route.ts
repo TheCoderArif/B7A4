@@ -7,11 +7,11 @@ const router = Router();
 
 
 
-router.post("/rentals",auth(Role.CUSTOMER), rentalController.createNewRentalOrder);
+router.post("/rentals",auth(Role.CUSTOMER, Role.ADMIN, Role.PROVIDER), rentalController.createNewRentalOrder);
 
-// router.get("/rentals");
+router.get("/rentals",auth(Role.ADMIN, Role.PROVIDER), rentalController.getRentalOrders);
 
-// router.get("/rentals/:id");
+router.get("/rentals/:id", rentalController.getRentalOrderDetails);
 
 
 
