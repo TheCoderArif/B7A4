@@ -118,8 +118,59 @@ const deleteGearFromDB = async (gearId : string) => {
 
 
 
+const getIncomingRentalOrdersFromDB = async () => {
+
+
+ 
+     const rentalOrders = await prisma.rentalOrder.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return rentalOrders;
+
+    
+};
+
+
+const updateRentalOrderStatusOnDB = async ( rentalOrderId: string,
+  status: 'PLACED' | 'CONFIRMED'| 'RETURNED'| 'CANCELLED') => {
+
+    const rentalOrder = await prisma.rentalOrder.findUnique({
+    where: {
+      id: rentalOrderId,
+    },
+  });
+
+  if (!rentalOrder) {
+    throw new Error("Rental order not found");
+  }
+
+  // Update the status
+  const result = await prisma.rentalOrder.update({
+    where: {
+      id: rentalOrderId,
+    },
+    data: {
+      status,
+    },
+  });
+
+  return result;
+
+};
+
+
+
+
+
+
+
 export const providerService = {
     addGearIntoDB,
     updateGearIntoDB,
-    deleteGearFromDB
+    deleteGearFromDB,
+    getIncomingRentalOrdersFromDB,
+    updateRentalOrderStatusOnDB
 };

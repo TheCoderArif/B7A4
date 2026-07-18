@@ -74,6 +74,7 @@ const deleteGear = catchAsync(async (req : Request, res : Response, next: NextFu
 
     const result = providerService.deleteGearFromDB(gearId as string);
 
+    
 
 
 
@@ -81,15 +82,52 @@ const deleteGear = catchAsync(async (req : Request, res : Response, next: NextFu
         success: true,
         statusCode: httpStatus.OK,
         message: "Gear deleted successfully",
-        data: {}
+        data: {result}
+    });
+
+});
+
+const getIncomingRentalOrders = catchAsync(async (req : Request, res : Response, next : NextFunction) => {
+
+    
+
+    const result = await providerService.getIncomingRentalOrdersFromDB();
+   
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Rental orders fetched successfully",
+        data: {result}
     });
 
 });
 
 
 
+const updateRentalOrderStatus = catchAsync(async (req : Request, res : Response, next : NextFunction) => {
+
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const result = await providerService.updateRentalOrderStatusOnDB(id as string, status );
+
+   
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Rental order status updated successfully",
+        data: {result}
+    });
+
+});
+
+
+
+
 export const providerController = {
     addGear,
     updateGear,
-    deleteGear
+    deleteGear,
+    getIncomingRentalOrders,
+    updateRentalOrderStatus
 };

@@ -13,9 +13,9 @@ router.put("/gear/:id",auth(Role.PROVIDER), providerController.updateGear);
 
 router.delete("/gear/:id",auth(Role.PROVIDER), providerController.deleteGear);
 
-// router.get("/orders");
+router.get("/orders", providerController.getIncomingRentalOrders);
 
-// router.patch("/orders/:id");
+router.patch("/orders/:id", providerController.updateRentalOrderStatus);
 
 
 

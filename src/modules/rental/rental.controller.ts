@@ -39,7 +39,7 @@ const getRentalOrders = catchAsync(async (req : Request, res : Response, next : 
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Rental order submitted successfully",
+        message: "Rental orders fetched successfully",
         data: {result}
     });
 
@@ -57,7 +57,7 @@ const getRentalOrderDetails = catchAsync(async (req : Request, res : Response, n
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Rental order submitted successfully",
+        message: "Rental order details fetched successfully",
         data: {result}
     });
 

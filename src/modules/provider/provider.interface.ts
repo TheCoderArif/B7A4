@@ -22,3 +22,12 @@ export interface IUpdateGearPayload {
         categoryId?:string;
         
     };
+
+
+// interface RentalStatus {
+//     PLACED |
+//     CONFIRMED
+//     PICKED_UP
+//     RETURNED
+//     CANCELLED
+// }
