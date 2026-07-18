@@ -18,6 +18,25 @@ const getAllGears = catchAsync(async (req : Request, res : Response, next : Next
 });
 
 
+
+
+const getSingleGear = catchAsync(async (req : Request, res : Response, next : NextFunction) => {
+
+    const gearId = req.params.id;
+
+    const result = await gearService.getSingleGearFromDB(gearId as string);
+   
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Gear details retrived successfully",
+        data: {result}
+    });
+
+});
+
+
 export const gearController = {
-    getAllGears
+    getAllGears,
+    getSingleGear
 };

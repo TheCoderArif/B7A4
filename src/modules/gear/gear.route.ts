@@ -7,7 +7,7 @@ const router = Router();
 
 router.get("/gear",gearController.getAllGears);
 
-// router.get("/gear/:id",);
+router.get("/gear/:id",gearController.getSingleGear);
 
 // router.get("/categories",);
 

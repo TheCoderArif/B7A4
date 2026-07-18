@@ -4,10 +4,10 @@ const getAllGearsFromDB = async () => {
 
     const gears = await prisma.gearItem.findMany({
     include: {
-      provider: true,
-      category: true,
-      reviews: true,
-      rentalOrders: true,
+      provider: false,
+      category: false,
+      reviews: false,
+      rentalOrders: false
     },
     orderBy: {
       createdAt: "desc",
@@ -15,6 +15,30 @@ const getAllGearsFromDB = async () => {
   });
 
   return gears;
+
+};
+
+
+
+const getSingleGearFromDB = async (gearId : string) => {
+
+    const gear = await prisma.gearItem.findUnique({
+    where: {
+      id: gearId,
+    },
+    include: {
+      provider: true,
+      category: true,
+      reviews: true,
+      rentalOrders: true,
+    },
+  });
+
+  if (!gear) {
+    throw new Error("Gear not found");
+  }
+
+  return gear;
 
 };
 
@@ -28,5 +52,6 @@ const getAllGearsFromDB = async () => {
 
 
 export const gearService = {
-    getAllGearsFromDB
+    getAllGearsFromDB,
+    getSingleGearFromDB
 };
