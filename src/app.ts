@@ -1,10 +1,11 @@
 import cookieParser from "cookie-parser";
-import express, { Application, Request, response, Response } from "express";
+import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import config from "./config";
 import { authRoutes } from "./modules/auth/auth.route";
 import { providerRoutes } from "./modules/provider/provider.route";
 import { gearRoutes } from "./modules/gear/gear.route";
+import { adminRoutes } from "./modules/admin/admin.route";
 
 const app : Application = express();
 
@@ -29,6 +30,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/provider', providerRoutes);
 
 app.use('/api', gearRoutes);
+
+app.use('/api/admin', adminRoutes);
 
 
 

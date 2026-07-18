@@ -4,6 +4,11 @@ enum Role {
     ADMIN
 }
 
+enum UserStatus {
+    ACTIVE
+    SUSPENDED
+}
+
 enum GearStatus {
     AVAILABLE
     OUT_OF_STOCK
