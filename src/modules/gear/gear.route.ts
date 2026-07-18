@@ -9,7 +9,7 @@ router.get("/gear",gearController.getAllGears);
 
 router.get("/gear/:id",gearController.getSingleGear);
 
-// router.get("/categories",);
+router.get("/categories",gearController.getAllCategories);
 
 
 
