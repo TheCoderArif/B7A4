@@ -51,13 +51,37 @@ const updateGear = catchAsync(async (req : Request, res : Response, next: NextFu
 
     // console.log(gearId);
 
-    const result = await providerService.updateGearIntoDB(gearId as string, payload, verifiedToken.data.id);
+    // const result = await providerService.updateGearIntoDB(gearId as string, payload, verifiedToken.data.id);
+
+    console.log(gearId);
 
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
         message: "Gear updated successfully",
-        data: result
+        data: {}
+    });
+
+});
+
+
+const deleteGear = catchAsync(async (req : Request, res : Response, next: NextFunction) =>{
+
+    const gearId = req.params.id;
+
+    // console.log(gearId);
+    
+
+    const result = providerService.deleteGearFromDB(gearId as string);
+
+
+
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Gear deleted successfully",
+        data: {}
     });
 
 });
@@ -66,5 +90,6 @@ const updateGear = catchAsync(async (req : Request, res : Response, next: NextFu
 
 export const providerController = {
     addGear,
-    updateGear
+    updateGear,
+    deleteGear
 };

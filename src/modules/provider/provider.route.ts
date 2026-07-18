@@ -11,7 +11,7 @@ router.post("/gear",auth(Role.PROVIDER), providerController.addGear);
 
 router.put("/gear/:id",auth(Role.PROVIDER), providerController.updateGear);
 
-// router.delete("gear/:id");
+router.delete("/gear/:id",auth(Role.PROVIDER), providerController.deleteGear);
 
 // router.get("/orders");
 

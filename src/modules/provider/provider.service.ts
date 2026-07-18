@@ -1,4 +1,5 @@
 import { prisma } from "../../lib/prisma";
+import sendResponse from "../../utilities/sendResponse";
 import { IGearPayload, IUpdateGearPayload } from "./provider.interface";
 
 const addGearIntoDB = async (payload : IGearPayload, id: string) => {
@@ -89,8 +90,36 @@ const updateGearIntoDB = async (gearId : string, payload: IUpdateGearPayload, pr
 };
 
 
+const deleteGearFromDB = async (gearId : string) => {
+
+  const gear = await prisma.gearItem.findUniqueOrThrow({
+        where: {
+            id : gearId
+        }
+    });
+
+    if (!gear) {
+      throw new Error("Gear not exists!!");
+      
+    }
+
+
+
+   const result = await prisma.gearItem.delete({
+  where: {
+    id: gearId,
+  },
+});
+
+  return result;
+
+
+};
+
+
 
 export const providerService = {
     addGearIntoDB,
-    updateGearIntoDB
+    updateGearIntoDB,
+    deleteGearFromDB
 };
