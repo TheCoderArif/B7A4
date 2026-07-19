@@ -22,7 +22,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 app.get("/", (req : Request, res : Response) => {
-    res.send("B7A4 Assignment!!")
+    res.send("B7A4 Assignment by Md. Ariful Islam. Project: GearUp")
 })
 
 

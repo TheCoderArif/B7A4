@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "build": "tsc",
     "start": "node dist/server.js",
+    "dev": "tsx watch ./src/server.ts",
+    "build": "tsup",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -35,7 +35,8 @@
     "http-status": "^2.1.0",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.22.0",
-    "stripe": "^22.3.2"
+    "stripe": "^22.3.2",
+    "tsup": "^8.5.1"
   },
   "allowScripts": {
     "prisma@7.8.0": true,
@@ -56,6 +57,7 @@
     "bcryptjs@3.0.3": true,
     "jsonwebtoken@9.0.3": true,
     "@types/jsonwebtoken@9.0.10": true,
-    "stripe@22.3.2": true
+    "stripe@22.3.2": true,
+    "tsup@8.5.1": true
   }
 }
