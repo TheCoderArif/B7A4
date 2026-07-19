@@ -11,7 +11,7 @@ router.post("/rentals",auth(Role.CUSTOMER, Role.ADMIN, Role.PROVIDER), rentalCon
 
 router.get("/rentals",auth(Role.ADMIN, Role.PROVIDER), rentalController.getRentalOrders);
 
-router.get("/rentals/:id", rentalController.getRentalOrderDetails);
+router.get("/rentals/:id",auth(Role.ADMIN, Role.PROVIDER), rentalController.getRentalOrderDetails);
 
 
 

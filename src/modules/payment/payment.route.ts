@@ -9,11 +9,11 @@ const router = Router();
 
 router.post('/create',auth(Role.ADMIN, Role.PROVIDER, Role.CUSTOMER), paymentController.createPaymentSession);
 
-router.post('/confirm', paymentController.confirmPaynment);
+router.post('/confirm',auth(Role.ADMIN, Role.PROVIDER, Role.CUSTOMER), paymentController.confirmPaynment);
 
-router.get('/', paymentController.getUsersPaymentHistory);
+router.get('/',auth(Role.ADMIN, Role.PROVIDER, Role.CUSTOMER), paymentController.getUsersPaymentHistory);
 
-router.get('/:id', paymentController.getPaymentDetails);
+router.get('/:id',auth(Role.ADMIN, Role.PROVIDER, Role.CUSTOMER), paymentController.getPaymentDetails);
 
 
 

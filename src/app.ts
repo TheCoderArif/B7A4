@@ -8,6 +8,7 @@ import { gearRoutes } from "./modules/gear/gear.route";
 import { adminRoutes } from "./modules/admin/admin.route";
 import { rentalRoutes } from "./modules/rental/rental.route";
 import { paymentRoutes } from "./modules/payment/payment.route";
+import { reviewRoutes } from "./modules/review/review.route";
 
 const app : Application = express();
 
@@ -38,6 +39,8 @@ app.use('/api/admin', adminRoutes);
 app.use('/api', rentalRoutes);
 
 app.use('/api/payments', paymentRoutes);
+
+app.use('/api', reviewRoutes);
 
 
 
